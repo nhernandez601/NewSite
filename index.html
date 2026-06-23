@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noe Hernandez | IT Professional</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #1c1c28;
+      --surface:  #252535;
+      --card:     #2e2e42;
+      --border:   #3a3a52;
+      --teal:     #2dd4bf;
+      --teal-dim: #1a9688;
+      --text:     #e2e8f0;
+      --muted:    #94a3b8;
+      --white:    #ffffff;
+      --radius:   10px;
+      --max:      960px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout helpers ── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    section { padding: 72px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(28,28,40,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    nav .logo { font-weight: 700; font-size: 1rem; color: var(--teal); letter-spacing: .5px; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul a { font-size: .875rem; color: var(--muted); font-weight: 500; transition: color .2s; }
+    nav ul a:hover { color: var(--teal); text-decoration: none; }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 100px 0 80px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(45,212,191,.12) 0%, transparent 70%);
+    }
+    .hero-inner { display: flex; flex-direction: column; gap: 8px; }
+    .hero-eyebrow {
+      font-size: .8rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal);
+    }
+    #hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800; line-height: 1.15;
+      color: var(--white);
+    }
+    #hero h1 span { color: var(--teal); }
+    .hero-sub {
+      margin-top: 6px; font-size: 1.15rem; color: var(--muted); max-width: 600px;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .tag {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--teal); font-size: .8rem; font-weight: 600;
+      padding: 5px 14px; border-radius: 20px; letter-spacing: .4px;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .btn {
+      display: inline-block; padding: 11px 26px; border-radius: var(--radius);
+      font-weight: 600; font-size: .9rem; cursor: pointer; transition: opacity .2s, transform .15s;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--teal); color: #0f1923; }
+    .btn-outline {
+      background: transparent; color: var(--teal);
+      border: 1.5px solid var(--teal);
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: 1.6rem; font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+    .section-title span { color: var(--teal); }
+    .section-rule { width: 44px; height: 3px; background: var(--teal); border-radius: 2px; margin-bottom: 36px; margin-top: 8px; }
+
+    /* ── Summary ── */
+    #summary p { font-size: 1.05rem; color: var(--muted); max-width: 760px; line-height: 1.8; }
+    #summary p + p { margin-top: 14px; }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px;
+    }
+    .skill-group h3 {
+      font-size: .78rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
+    }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-pill {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: .8rem; padding: 4px 12px; border-radius: 6px;
+    }
+
+    /* ── Experience ── */
+    .exp-item { display: grid; gap: 6px; margin-bottom: 40px; }
+    .exp-item:last-child { margin-bottom: 0; }
+    .exp-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .exp-title { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .exp-period { font-size: .82rem; color: var(--teal); font-weight: 600; white-space: nowrap; }
+    .exp-company { color: var(--muted); font-size: .9rem; margin-top: 1px; }
+    .exp-bullets { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
+    .exp-bullets li { color: var(--muted); font-size: .94rem; padding-left: 20px; position: relative; }
+    .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .75rem; top: 4px; }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 26px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: border-color .2s, transform .2s;
+    }
+    .project-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+    .project-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-icon { font-size: 1.6rem; }
+    .project-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-top: 4px; }
+    .project-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+    .project-tech span {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--teal); font-size: .75rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 4px; letter-spacing: .3px;
+    }
+
+    /* ── Contact ── */
+    #contact .contact-grid {
+      display: flex; flex-wrap: wrap; gap: 16px;
+    }
+    .contact-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 26px;
+      display: flex; align-items: center; gap: 14px;
+      transition: border-color .2s;
+      text-decoration: none;
+    }
+    .contact-card:hover { border-color: var(--teal); text-decoration: none; }
+    .contact-icon { font-size: 1.4rem; }
+    .contact-label { font-size: .78rem; color: var(--muted); font-weight: 600; letter-spacing: .8px; text-transform: uppercase; }
+    .contact-value { font-size: .95rem; color: var(--white); font-weight: 500; margin-top: 1px; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 32px 24px; text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: .82rem;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      nav ul { gap: 16px; }
+      nav ul li:nth-child(n+4) { display: none; }
+      section { padding: 56px 0; }
+      #hero { padding: 72px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="inner">
+      <span class="logo">NH</span>
+      <ul>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">IT Professional &mdash; Healthcare &amp; Enterprise</p>
+        <h1>Noe <span>Hernandez</span></h1>
+        <p class="hero-sub">
+          Systems Administrator &amp; IT Automation Engineer with 7+ years supporting
+          multi-site healthcare operations. Specializing in Active Directory, Microsoft 365,
+          PowerShell automation, and bilingual end-user support.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">IT Help Desk</span>
+          <span class="tag">Systems Administration</span>
+          <span class="tag">IT Automation</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Get In Touch</a>
+          <!-- RESUME BUTTON: Replace # with the URL to your hosted PDF resume, then remove this comment -->
+          <a href="#" class="btn btn-outline">Download Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary">
+    <div class="container">
+      <h2 class="section-title">Professional <span>Summary</span></h2>
+      <div class="section-rule"></div>
+      <p>
+        IT professional with 7 years of experience at a multi-site healthcare organization
+        (400+ employees across 4 locations), supporting both end users and core infrastructure.
+        Proven track record in administering hybrid Active Directory and Microsoft 365
+        environments, building PowerShell automation tools that reduce manual workload, and
+        delivering bilingual (English/Spanish) technical support to clinical and administrative staff.
+      </p>
+      <p>
+        My approach leans toward automation first: if a repeated manual task can be scripted,
+        it gets scripted. I have designed and deployed solutions ranging from a fully automated
+        employee onboarding application to a bilingual AI-powered call center system integrated
+        with on-premises telephony — all within a regulated healthcare setting where security,
+        uptime, and compliance matter. Currently pursuing certification to formalize skills I use
+        every day.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">Core <span>Skills</span></h2>
+      <div class="section-rule"></div>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <h3>Systems Administration</h3>
+          <div class="skill-list">
+            <span class="skill-pill">Active Directory</span>
+            <span class="skill-pill">Microsoft 365</span>
+            <span class="skill-pill">Entra ID (Azure AD)</span>
+            <span class="skill-pill">Exchange Online</span>
+            <span class="skill-pill">Group Policy (GPO)</span>
+            <span class="skill-pill">Hybrid Identity</span>
+            <span class="skill-pill">User Lifecycle Mgmt</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Networking</h3>
+          <div class="skill-list">
+            <span class="skill-pill">TCP/IP</span>
+            <span class="skill-pill">DNS / DHCP</span>
+            <span class="skill-pill">VLANs</span>
+            <span class="skill-pill">VPN</span>
+            <span class="skill-pill">Firewall Config</span>
+            <span class="skill-pill">Network Troubleshooting</span>
+            <span class="skill-pill">Multi-site Connectivity</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Automation &amp; Scripting</h3>
+          <div class="skill-list">
+            <span class="skill-pill">PowerShell</span>
+            <span class="skill-pill">Microsoft Graph API</span>
+            <span class="skill-pill">Task Scheduling</span>
+            <span class="skill-pill">Process Automation</span>
+            <span class="skill-pill">LLM Integration</span>
+            <span class="skill-pill">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="skill-list">
+            <span class="skill-pill">Windows Server</span>
+            <span class="skill-pill">Microsoft Intune</span>
+            <span class="skill-pill">Asterisk PBX</span>
+            <span class="skill-pill">Ticketing Systems</span>
+            <span class="skill-pill">Remote Support Tools</span>
+            <span class="skill-pill">Azure Portal</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="skill-list">
+            <span class="skill-pill">English &mdash; Fluent</span>
+            <span class="skill-pill">Spanish &mdash; Fluent</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <h2 class="section-title">Work <span>Experience</span></h2>
+      <div class="section-rule"></div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">IT Help Desk Specialist</span>
+          <span class="exp-period">Present &mdash; 7 Years</span>
+        </div>
+        <!-- COMPANY: Replace the text below with your employer's name if you'd like it shown -->
+        <div class="exp-company">Multi-Site Healthcare Organization &mdash; 400+ Employees, 4 Locations</div>
+        <ul class="exp-bullets">
+          <li>Serve as primary IT support for clinical and administrative staff across four locations, resolving hardware, software, and network issues in a regulated healthcare environment.</li>
+          <li>Administer hybrid Active Directory and Microsoft 365 tenant, including user provisioning, group management, license assignment, Exchange Online, and Entra ID (Azure AD) integration.</li>
+          <li>Developed and deployed a PowerShell-based employee onboarding application that fully automates AD account creation, group assignment, logon-hour enforcement, M365 license provisioning, and Entra ID verification via Microsoft Graph API.</li>
+          <li>Architected a bilingual (English/Spanish) AI auto-attendant system using open-source speech processing, a locally hosted language model, and Asterisk telephony infrastructure to handle inbound organizational calls.</li>
+          <li>Provide bilingual (English/Spanish) end-user support, reducing language barriers for Spanish-speaking clinical staff and improving ticket resolution time.</li>
+          <li>Manage networking fundamentals across sites including DNS, DHCP, VPN access, and escalation to carrier/vendor contacts for connectivity issues.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+      <div class="section-rule"></div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <span class="project-icon">⚙️</span>
+          </div>
+          <h3>UserOnboarding App</h3>
+          <p>
+            A PowerShell-based Windows application that automates the full new-employee
+            onboarding workflow: Active Directory account creation, default security group
+            assignment, logon-hour policy enforcement, Microsoft 365 license assignment,
+            and Entra ID provisioning verification via the Microsoft Graph API. Reduced a
+            multi-step manual process to a single guided interface for the IT team.
+          </p>
+          <div class="project-tech">
+            <span>PowerShell</span>
+            <span>Active Directory</span>
+            <span>Microsoft Graph</span>
+            <span>Entra ID</span>
+            <span>M365</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <span class="project-icon">🤖</span>
+          </div>
+          <h3>AI Call Center System</h3>
+          <p>
+            Designed and deployed a bilingual AI auto-attendant for the organization's
+            inbound phone lines. The system integrates open-source speech-to-text and
+            text-to-speech engines with a locally hosted large language model (LLM) and
+            Asterisk PBX telephony infrastructure. Handles routine inbound calls in
+            English and Spanish, routing and responding without requiring live staff for
+            every interaction.
+          </p>
+          <div class="project-tech">
+            <span>Asterisk PBX</span>
+            <span>LLM (Local)</span>
+            <span>Speech-to-Text</span>
+            <span>TTS</span>
+            <span>Bilingual</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <span class="project-icon">🛡️</span>
+          </div>
+          <h3>Internal AI Assistant</h3>
+          <p>
+            Configured and deployed an AI coding and knowledge assistant for internal IT
+            use, scoped specifically to Active Directory and Microsoft 365 administration
+            tasks and PowerShell scripting. Implemented safety guardrails to prevent
+            exposure of sensitive organizational data, giving the IT team a productivity
+            tool purpose-built for their environment.
+          </p>
+          <div class="project-tech">
+            <span>LLM (Local)</span>
+            <span>PowerShell</span>
+            <span>AD / M365</span>
+            <span>Safety Guardrails</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+      <div class="section-rule"></div>
+      <p style="color:var(--muted); margin-bottom:28px; max-width:560px;">
+        Open to opportunities in IT Help Desk, Systems Administration, and IT Automation /
+        Systems Engineering. Feel free to reach out by email or connect on LinkedIn.
+      </p>
+      <div class="contact-grid">
+
+        <a href="mailto:n.hernandez601@gmail.com" class="contact-card">
+          <span class="contact-icon">✉️</span>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">n.hernandez601@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/noe-hernandez-9986692b2" target="_blank" rel="noopener" class="contact-card">
+          <span class="contact-icon">💼</span>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">linkedin.com/in/noe-hernandez</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Noe Hernandez &mdash; IT Professional &mdash; Healthcare &amp; Enterprise Systems</p>
+      <p style="margin-top:6px;">Currently pursuing certifications &mdash; Available for new opportunities</p>
+    </div>
+  </footer>
+
+</body>
+</html>
